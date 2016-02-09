@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>&amp;nbsp;</title>
+		<style>
+			body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h1, h2, h3 {
+	font-weight: 400;
+	margin-bottom: 0;
+}
+.remark-slide-content h1 { font-size: 3em; }
+.remark-slide-content h2 { font-size: 2em; }
+.remark-slide-content h3 { font-size: 1.6em; }
+.footnote {
+	position: absolute;
+	bottom: 3em;
+}
+li p { line-height: 1.25em; }
+.red { color: #fa0000; }
+.large { font-size: 2em; }
+a, a > code {
+	color: rgb(249, 38, 114);
+	text-decoration: none;
+}
+code {
+	background: none repeat scroll 0 0 #F8F8FF;
+  border: 1px solid #DEDEDE;
+  border-radius: 3px 	;
+  padding: 0 0.2em;
+}
+.remark-code, .remark-inline-code { font-family: "Bitstream Vera Sans Mono", "Courier", monospace; }
+.remark-code-line-highlighted     { background-color: #373832; }
+.pull-left {
+	float: left;
+	width: 47%;
+}
+.pull-right {
+	float: right;
+	width: 47%;
+}
+.pull-right ~ p {
+	clear: both;
+}
+#slideshow .slide .content code {
+	font-size: 0.8em;
+}
+#slideshow .slide .content pre code {
+	font-size: 0.9em;
+	padding: 15px;
+}
+.main-title, .title {
+	background: #272822;
+	color: #777872;
+	text-shadow: 0 0 20px #333;
+}
+.title h1, .title h2, .main-title h1, .main-title h2 {
+	color: #f3f3f3;
+	line-height: 0.8em;
+}
+/* Custom */
+.remark-code {
+	display: block;
+	padding: 0.5em;
+}
+
+		</style>
+	</head>
+	<body>
+		<textarea id="source">
+# &nbsp;
+# Why Elixir is
+# my new favorite language
+---
+# &nbsp;
+# It's functional.
+---
+# &nbsp;
+# It's Performant.
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Final results from Phoenix channel benchmarks on 40core/128gb box. 2 million clients, limited by ulimit<a href="https://twitter.com/hashtag/elixirlang?src=hash"> #elixirlang</a> <a href="https://t.co/6wRUIfFyKZ">pic.twitter.com/6wRUIfFyKZ</a></p>&mdash; Chris McCord (@chris_mccord) <a href="https://twitter.com/chris_mccord/status/659430661942550528">October 28, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+---
+<img src="https://pbs.twimg.com/media/CSbEsTiW0AARBzf.png" style="height: 600px;" />
+---
+# &nbsp;
+# Pattern matching, guards, and recursion are amazing. 
+---
+# &nbsp;
+# Multi-threading is easy.
+---
+# &nbsp;
+# Don't believe me?
+---
+## Javascript
+```javascript
+function fib(n) {
+  if (n === 0) {
+    return 0;
+  } else if (n === 1) {
+    return 1;
+  } else if (Number.isFinite(n)) {
+    return fib(n-1) + fib(n-2);
+  } else {
+    return null;
+  }
+}
+```
+---
+## Elixir
+```elixir
+def fib(0), do: 0
+def fib(1), do: 1
+def fib(n) when is_integer(n) do
+  fib(n-1) + fib(n-2)
+end
+def fib(_), do: nil
+```
+---
+## Elixir, multithreaded
+```elixir
+defmodule Stack do
+  use GenServer
+
+  def handle_call(:pop, _from, [head | tail]) do
+    {:reply, head, tail}
+  end
+
+  def handle_cast({:push, item}, state) do
+    {:noreply, [item | state]}
+  end
+end
+
+{:ok, pid} = GenServer.start_link(Stack, [:hello])
+GenServer.call(pid, :pop)
+#=> :hello
+GenServer.cast(pid, {:push, :world})
+#=> :ok
+GenServer.call(pid, :pop)
+#=> :world
+
+# I'll do something else
+for i <- 1..10, do: IO.puts(i)
+```
+---
+# &nbsp;
+# Phoenix &#8776; Rails, but with channels.
+
+		</textarea>
+		<script src="http://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+		<script>
+			var slideshow = remark.create();
+		</script>
+		<script></script>
+	</body>
+</html>
