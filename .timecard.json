@@ -1,7 +1,23 @@
 {
   "reportFormat": "default",
   "hourlyRate": 0,
-  "card": [],
+  "card": [
+    {
+      "date": "Thu Apr 28 2016",
+      "times": [
+        {
+          "start": "07:29:43",
+          "by": "1egoman",
+          "end": "07:29:46"
+        },
+        {
+          "start": "07:41:10",
+          "by": "1egoman",
+          "end": "07:41:30"
+        }
+      ]
+    }
+  ],
   "name": "Elixir Presentation",
   "tagline": "Elixir presentation for openhack",
   "clientName": "Myself",
